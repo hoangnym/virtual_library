@@ -12,14 +12,18 @@ def home():
 
 @app.route("/add", methods=["GET", "POST"])
 def add():
-    data = request.form
-    book = {"name": data["book_name"],
-            "author": data["book_author"],
-            "rating": data["rating"]}
-    all_books.append(book)
-    print(all_books)
-    # book = Book(data["book_name"], data["book_author"], data["rating"])
-    # print(book.name, book.author, book.rating)
+    if request.method == "POST":
+        data = request.form
+        book = {"name": data["book_name"],
+                "author": data["book_author"],
+                "rating": data["rating"]}
+        all_books.append(book)
+        print(all_books)
+
+        # NOTE: You can use the redirect method from flask to redirect to another route
+        # e.g. in this case to the home page after the form has been submitted.
+        return redirect(url_for('home'))
+
     return render_template("add.html")
 
 
