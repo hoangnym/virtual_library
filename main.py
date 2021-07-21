@@ -45,6 +45,24 @@ def add():
     return render_template("add.html")
 
 
+@app.route("/edit/<int:index>", methods=["GET","POST"])
+def edit(index):
+    if request.method == "POST":
+        # Update database entry
+        # book = Book(
+        #     title=request.form["book_name"],
+        #     author=request.form["book_author"],
+        #     rating=request.form["rating"]
+        # )
+        return redirect(url_for('home'))
+
+    book_to_update = Book.query.get(index)
+    return render_template(
+        "edit.html",
+        book=book_to_update
+    )
+
+
 if __name__ == "__main__":
     app.run(debug=True)
 
