@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request, redirect, url_for
-from book import Book
 
 app = Flask(__name__)
 
@@ -13,9 +12,14 @@ def home():
 
 @app.route("/add", methods=["GET", "POST"])
 def add():
-    print(request.method)
     data = request.form
-    Book(data["book_name"], data["book_author"], data["rating"])
+    book = {"name": data["book_name"],
+            "author": data["book_author"],
+            "rating": data["rating"]}
+    all_books.append(book)
+    print(all_books)
+    # book = Book(data["book_name"], data["book_author"], data["rating"])
+    # print(book.name, book.author, book.rating)
     return render_template("add.html")
 
 
